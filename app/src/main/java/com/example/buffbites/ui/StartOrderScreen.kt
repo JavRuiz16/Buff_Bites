@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -30,6 +31,8 @@ import com.example.buffbites.ui.theme.BuffBitesTheme
 
 @Composable
 fun StartOrderScreen(
+    quantityOptions: List<Pair<Int, Int>>,
+    onNextButtonsClicked: (Int) -> Unit,
     restaurantOptions: List<Restaurant>,
     modifier: Modifier = Modifier
 ) {
@@ -62,7 +65,7 @@ fun StartOrderScreen(
             ) {
                 restaurantOptions.forEach {
                     Button(
-                        onClick = { /* TODO */ },
+                        onClick = { onNextButtonsClicked(item.second) },
                         modifier = Modifier.widthIn(min = 250.dp),
                     ) {
                         Text(stringResource(it.name))
@@ -79,6 +82,7 @@ fun StartOrderPreview(){
     BuffBitesTheme {
         StartOrderScreen(
             restaurantOptions = Datasource.restaurants,
+            onNextButtonsClicked = {},
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)

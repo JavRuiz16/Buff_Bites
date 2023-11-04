@@ -12,5 +12,10 @@ data class OrderUiState(
     /** Selected time for delivery (such as "7:00 PM") */
     val selectedDeliveryTime: String = "",
     /** Available delivery times for the order */
-    val availableDeliveryTimes: List<String> = listOf()
-)
+    val availableDeliveryTimes: List<String> = listOf(),
+    val DeliveryOptions: List<String>,
+    val price: Any
+) {
+
+
+}

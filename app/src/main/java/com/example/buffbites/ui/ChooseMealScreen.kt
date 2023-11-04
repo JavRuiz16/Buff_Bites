@@ -36,6 +36,8 @@ fun ChooseMenuScreen(
     options: List<MenuItem>,
     onSelectionChanged: (MenuItem) -> Unit,
     modifier: Modifier = Modifier,
+    onNextButtonClicked:() -> Unit = {},
+    onCancelButtonClicked: () -> Unit,
 ) {
     var selectedItemName by rememberSaveable { mutableStateOf("") }
 
@@ -119,7 +121,8 @@ fun MenuScreenButtonGroup(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.Bottom
     ){
-        OutlinedButton(modifier = Modifier.weight(1f), onClick = onCancelButtonClicked) {
+        OutlinedButton(modifier = Modifier.weight(1f),
+            onClick = onCancelButtonClicked) {
             Text(stringResource(R.string.cancel))
         }
         Button(
@@ -133,6 +136,7 @@ fun MenuScreenButtonGroup(
     }
 }
 
+
 @Preview
 @Composable
 fun MenuScreenPreview() {
@@ -141,8 +145,6 @@ fun MenuScreenPreview() {
             options = Datasource.restaurants[0].menuItems,
             onSelectionChanged = {},
             modifier = Modifier
-                .padding(16.dp)
-                .verticalScroll(rememberScrollState())
-        )
+                .padding(16.dp),
     }
 }

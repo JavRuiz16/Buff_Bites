@@ -1,5 +1,6 @@
 package com.example.buffbites.ui
 
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,13 +24,16 @@ import com.example.buffbites.R
 import com.example.buffbites.data.Datasource
 import com.example.buffbites.ui.theme.BuffBitesTheme
 import java.text.NumberFormat
+import androidx.navigation.compose.NavHost
 
 @Composable
 fun OrderSummaryScreen(
     orderUiState: OrderUiState,
+    onSendButtonClicked: (String, String) -> Unit,
+    onCancelButtonClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // Format all prices into strings with dollar sign and 2 decimal places (e.g. $4.99)
+    // Format all prices into strings with a dollar sign and 2 decimal places (e.g., $4.99)
     val formattedSubTotal = NumberFormat.getCurrencyInstance().format(orderUiState.orderSubtotal)
     val formattedTax = NumberFormat.getCurrencyInstance().format(orderUiState.orderTax)
     val formattedTotal = NumberFormat.getCurrencyInstance().format(orderUiState.orderTotalPrice)
@@ -46,7 +50,6 @@ fun OrderSummaryScreen(
         orderUiState.selectedDeliveryTime,
         formattedTotal
     )
-
     Column (
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -96,13 +99,13 @@ fun OrderSummaryScreen(
         ) {
             OutlinedButton(
                 modifier = Modifier.weight(1f),
-                onClick = { /* TODO */ }
+                onClick = {onCancelButtonClicked}
             ) {
                 Text(stringResource(R.string.cancel))
             }
             Button(
                 modifier = Modifier.weight(1f),
-                onClick = { /* TODO */ }
+                onClick = { onSendButtonClicked(newOrder, orderSummary)}
             ) {
                 Text(stringResource(R.string.submit))
             }
@@ -116,6 +119,8 @@ fun OrderSummaryScreenPreview() {
     BuffBitesTheme {
         OrderSummaryScreen(
             orderUiState = OrderUiState(
+                onSendButtonClicked = {subject, String, summary: String -> },
+                onCancelButtonClicked ={},
                 selectedVendor = Datasource.restaurants[0],
                 selectedMeal = Datasource.restaurants[0].menuItems[0],
                 orderSubtotal = Datasource.restaurants[0].menuItems[0].price,
@@ -123,6 +128,7 @@ fun OrderSummaryScreenPreview() {
                 orderTotalPrice = Datasource.restaurants[0].menuItems[0].price + Datasource.restaurants[0].menuItems[0].price * 0.08,
                 selectedDeliveryTime = "Sat Sep 24 7:00 PM"
             ),
+
             modifier = Modifier
                 .fillMaxHeight()
                 .padding(16.dp)

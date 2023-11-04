@@ -62,4 +62,8 @@ class OrderViewModel : ViewModel() {
 
         return deliveryOptions
     }
+
+    fun setDate(it: String) {
+        TODO("Not yet implemented")
+    }
 }
